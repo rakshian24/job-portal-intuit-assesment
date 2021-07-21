@@ -1,4 +1,13 @@
 .app-body {
   margin-top: 70px;
-  background-color: gray;
+  background-color: #f3f2efdc;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
+
+/* .container{
+  width: 90%;
+  background-color: red;
+} */

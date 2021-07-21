@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Dashboard from '../components/Dashboard';
-import JobList from '../components/JobList';
-import PageNotFound from '../components/PageNotFound';
-import Profile from '../components/Profile';
-import WelcomeScreen from '../components/WelcomeScreen';
+import Dashboard from '../components/Dashboard/Dashboard';
+import JobList from '../components/JobList/JobList';
+import PageNotFound from '../components/PageNotFound/PageNotFound';
+import Profile from '../components/Profile/Profile';
+import WelcomeScreen from '../components/WelcomeScreen/WelcomeScreen';
 
 const Routes = () => {
   return (
