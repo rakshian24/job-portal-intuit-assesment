@@ -1,28 +1,46 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ROLES } from '../../constants';
-import { changeRole } from '../../reducer/role/actionCreator';
+import { asyncChangeRole } from '../../reducer/role/actionCreator';
 import './WelcomeScreen.style.css';
+import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const WelcomeScreen = () => {
   const { role } = useSelector((state) => state.role);
-  console.log('role = ', role);
+  let history = useHistory();
+  
+  useEffect(() => {
+    if (role) {
+      history.push('/dashboard');
+    }
+  });
+
   const dispatch = useDispatch();
   return (
     <div className="welcome-wrapper container">
       <div className="welcome-card">
+        <p>Role Selected = {role}</p>
         <h6 className="card-title">Please choose your role</h6>
         <div className="card-content">
           <div
             className="role"
-            onClick={() => dispatch(changeRole(ROLES.ADMIN))}
+            onClick={() =>
+              dispatch(asyncChangeRole(ROLES.ADMIN)).then(() =>
+                history.push('/dashboard'),
+              )
+            }
           >
             <span>Admin</span>
             <div className="sub-text">Admin can create jobs</div>
           </div>
           <div
             className="role"
-            onClick={() => dispatch(changeRole(ROLES.USER))}
+            onClick={() =>
+              dispatch(asyncChangeRole(ROLES.USER)).then(() =>
+                history.push('/dashboard'),
+              )
+            }
           >
             <span>User</span>
             <div className="sub-text">

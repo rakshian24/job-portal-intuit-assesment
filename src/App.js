@@ -4,11 +4,8 @@ import Routes from './routes/Routes';
 
 function App() {
   return (
-    <div className="App">
-      <Header title={'Job Portal'} />
-      <div className="app-body">
-        <Routes />
-      </div>
+    <div className="app-body">
+      <Routes />
     </div>
   );
 }
