@@ -15,7 +15,7 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={WelcomeScreen}></Route>
         <DynamicRoute exact path="/profile" component={Profile} />
-        <DynamicRoute exact path="/job-list" component={JobList} />
+        <DynamicRoute exact path="/jobs" component={JobList} />
         <DynamicRoute exact path="/dashboard" component={Dashboard} />
         <Route exact path="" component={PageNotFound}></Route>
       </Switch>

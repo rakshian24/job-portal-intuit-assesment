@@ -12,7 +12,44 @@
   box-shadow: 0 1.5px 2px 0 rgb(0 0 0 / 25%);
 }
 
-.header .header-title {
+.header-title-container {
+  flex: 0.35;
+}
+
+.header-nav-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.header-nav-container > div {
+  display: flex;
+}
+
+.header-nav {
+  margin: 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #becfe6;
+  cursor: pointer;
+}
+
+.active-nav-tab {
+  color: #fff;
+  position: relative;
+}
+
+.active-nav-tab:after {
+  position: absolute;
+  content: '';
+  border-bottom: 4px solid #fff;
+  width: 100%;
+  transform: translateX(-50%);
+  bottom: -25px;
+  left: 50%;
+}
+
+.header-title-container .header-title {
   color: white;
   font-size: 1.5rem;
   cursor: pointer;

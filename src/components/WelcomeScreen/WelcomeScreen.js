@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 const WelcomeScreen = () => {
   const { role } = useSelector((state) => state.role);
   let history = useHistory();
-  
+
   useEffect(() => {
     if (role) {
       history.push('/dashboard');
@@ -20,7 +20,6 @@ const WelcomeScreen = () => {
   return (
     <div className="welcome-wrapper container">
       <div className="welcome-card">
-        <p>Role Selected = {role}</p>
         <h6 className="card-title">Please choose your role</h6>
         <div className="card-content">
           <div
