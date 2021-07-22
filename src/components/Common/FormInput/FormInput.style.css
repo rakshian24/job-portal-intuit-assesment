@@ -1,0 +1,29 @@
+.form-input {
+  height: 34px;
+  font-size: 0.9em;
+  border-radius: 3px;
+  line-height: 1.3em;
+  color: #000000;
+  border: 1px solid #0077c5;
+  padding: 0.5rem 0.5rem;
+}
+
+.form-input::placeholder {
+  font-weight: lighter;
+  opacity: 0.5;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 8%) inset, 0 0 8px rgb(82 168 236 / 60%);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group > label {
+  margin-bottom: 4px;
+}

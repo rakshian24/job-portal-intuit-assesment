@@ -1,0 +1,9 @@
+.profile-form-wrapper {
+  margin-top: 2rem;
+  width: 90%;
+}
+
+.form-first-row {
+  display: flex;
+  justify-content: space-between;
+}

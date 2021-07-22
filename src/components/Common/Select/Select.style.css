@@ -1,0 +1,26 @@
+.custom-select {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.custom-select > select {
+  height: 34px;
+  padding: 0.5rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid #0077c5;
+}
+
+.custom-select > select:focus {
+  outline: none;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 8%) inset, 0 0 8px rgb(82 168 236 / 60%);
+}
+
+.custom-select > label {
+  margin-bottom: 4px;
+}
+
+.custom-select > select > option {
+  padding: 0.5rem 0.5rem;
+  height: 34px;
+}
