@@ -6,6 +6,7 @@ import Card from '../Common/Card/Card';
 import FormInput from '../Common/FormInput/FormInput';
 import Select from '../Common/Select/Select';
 import TagBox from '../Common/TagBox/TagBox';
+import Github from '../Github/Github';
 import './Profile.style.css';
 
 const Profile = () => {
@@ -68,6 +69,10 @@ const Profile = () => {
             </div>
             <div className="form-third-row">
               <TagBox label="Skills" />
+            </div>
+
+            <div>
+              <Github />
             </div>
           </div>
         </Card>
