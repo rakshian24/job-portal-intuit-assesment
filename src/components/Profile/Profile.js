@@ -5,6 +5,7 @@ import { EXPERIENCE } from '../../constants';
 import Card from '../Common/Card/Card';
 import FormInput from '../Common/FormInput/FormInput';
 import Select from '../Common/Select/Select';
+import TagBox from '../Common/TagBox/TagBox';
 import './Profile.style.css';
 
 const Profile = () => {
@@ -23,7 +24,7 @@ const Profile = () => {
 
   return (
     <div className="profile-form-wrapper">
-      <form className="form">
+      <form className="form" autoComplete="off">
         <Card>
           <div className="card-title">Personal Details</div>
           <div className="card-content">
@@ -57,13 +58,16 @@ const Profile = () => {
               </div>
             </div>
 
-            <div>
+            <div className="form-second-row">
               <Select
                 label="Experience"
                 name="experience"
                 options={EXPERIENCE}
                 handleDropdownChange={handleInputChange}
               />
+            </div>
+            <div className="form-third-row">
+              <TagBox label="Skills" />
             </div>
           </div>
         </Card>

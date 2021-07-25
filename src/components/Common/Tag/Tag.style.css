@@ -1,0 +1,17 @@
+.tag {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #2b3a42;
+  border-radius: 20px;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  margin-top: 0.35rem;
+}
+
+.tag > span {
+  margin-right: 5px;
+}
+
+.close-icon {
+  cursor: pointer;
+}
