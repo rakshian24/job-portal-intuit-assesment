@@ -8,7 +8,7 @@ import rootReducer from './reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { loadInititalAppLoadState, savedState, saveState } from './retainState';
-
+require('dotenv').config()
 loadInititalAppLoadState()
 
 let store;

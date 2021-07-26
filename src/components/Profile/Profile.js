@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState } from 'react';
 import { EXPERIENCE } from '../../constants';
 import Card from '../Common/Card/Card';
@@ -7,28 +7,42 @@ import TagBox from '../Common/TagBox/TagBox';
 import Github from '../Github/Github';
 import './Profile.style.css';
 import { useAsyncState } from '../../hooks/useAsyncState';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { asyncCreateProfile } from '../../reducer/profile/actionCreator';
 import Select from 'react-select';
 import FormInputErrorMessage from '../Common/FormInputErrorMessage/FormInputErrorMessage';
+import { useHistory } from 'react-router-dom';
+import ImageUpload from '../ImageUpload/ImageUpload';
+import uploadPic from '../../helper/uploadPicToCloudinary';
 
 const Profile = () => {
-  const { user } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     preferredLocation: '',
+    profilePic: '',
   });
   const [tags, setTags] = useState([]);
   const [githubUser, setGithubUser] = useState('');
   const [selectedProject, setSelectedProject] = useState([]);
   const [errors, setErrors] = useAsyncState({});
   const [experience, setExperience] = useState(null);
+  const [media, setMedia] = useState(null);
+  const [mediaPreview, setMediaPreview] = useState(null);
+  const [highlighted, setHighlighted] = useState(false);
+  const profilePicRef = useRef();
+
+  let history = useHistory();
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
+
+    if (name === 'profilePic') {
+      setMedia(files[0]);
+      setMediaPreview(URL.createObjectURL(files[0]));
+    }
     setFormData({ ...formData, [name]: value });
 
     const validationErrorsLength = Object.keys(errors).length > 0;
@@ -100,11 +114,13 @@ const Profile = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    const uploadedProfilePicUrl = await uploadPic(media);
     const formSubmissionData = {
       ...formData,
       skills: tags,
       githubUser,
       githubProjects: selectedProject,
+      profilePic: uploadedProfilePicUrl,
     };
 
     const isValidated = await validateForm();
@@ -114,6 +130,7 @@ const Profile = () => {
         (isUserProfileCreated) => {
           if (isUserProfileCreated) {
             resetFormValues();
+            history.push('/dashboard');
           }
         },
       );
@@ -126,6 +143,17 @@ const Profile = () => {
         <Card>
           <div className="card-title">Profile Details</div>
           <div className="card-content">
+            <div>
+              <ImageUpload
+                mediaPreview={mediaPreview}
+                setMediaPreview={setMediaPreview}
+                highlighted={highlighted}
+                setHighlighted={setHighlighted}
+                setMedia={setMedia}
+                profilePicRef={profilePicRef}
+                handleChange={handleInputChange}
+              />
+            </div>
             <div className="form-first-row">
               <div>
                 <FormInput
