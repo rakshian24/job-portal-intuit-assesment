@@ -1,0 +1,15 @@
+.dropdown-control {
+  color: #2b3a42;
+}
+
+.dropdown-control + .dropdown-menu {
+  width: auto;
+  min-width: 100%;
+  border: none;
+  border-radius: 8px;
+  color: #2b3a42;
+}
+
+.indicator-wrapper > div {
+  padding: 0 !important;
+}

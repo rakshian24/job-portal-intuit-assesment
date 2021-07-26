@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useSearchGithubUser from '../../hooks/useSearchGithubUser';
 import Loader from '../Common/Loader/Loader';
+import MultiSelect from '../Common/MultiSelect/MultiSelect';
 
 const GithubProjects = ({ username }) => {
-  // console.log('username in Pro Comp = ', username);
   const [githubProjects, errors, loading] = useSearchGithubUser({ username });
-
-  console.log('githubProjects in Comp = ', githubProjects);
+  const [selectedVal, setSelectedVal] = useState([]);
 
   if (errors) {
-    console.log("ERROR IS PRESENT")
     return <p>Something Went Wrong :(</p>;
   }
 
@@ -19,8 +17,39 @@ const GithubProjects = ({ username }) => {
 
   return (
     <div>
-      {githubProjects.length > 0 ? (
+      {/* {githubProjects.length > 0 ? (
         githubProjects.map((project) => <p key={project.id}>{project.name}</p>)
+      ) : (
+        <p>No Projects Found</p>
+      )} */}
+      {/* <MultiSelect
+        options={[
+          { id: 1, name: 'Cool' },
+          { id: 2, name: 'Hot' },
+          { id: 3, name: 'Humid' },
+          { id: 4, name: 'Moist' },
+        ]}
+        value={selectedVal}
+        onChange={(e) => {
+          console.log(e);
+          setSelectedVal(e);
+        }}
+        loading={loading}
+        selectAllType="Select All"
+        placeholder="Select Projects"
+      /> */}
+      {githubProjects.length > 0 ? (
+        <MultiSelect
+          options={githubProjects}
+          value={selectedVal}
+          onChange={(e) => {
+            console.log(e);
+            setSelectedVal(e);
+          }}
+          loading={loading}
+          selectAllType="Select All"
+          placeholder="Select Projects"
+        />
       ) : (
         <p>No Projects Found</p>
       )}

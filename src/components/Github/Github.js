@@ -6,19 +6,16 @@ import GithubProjects from '../GithubProjects/GithubProjects';
 const Github = () => {
   const [githubUser, setGithubUser] = useState('');
   const [showProjectsSection, setShowProjectsSection] = useState(false);
-  const [resetErrorOnUserChange, setResetErrorOnUserChange] = useState(false);
 
   useEffect(() => {
     if (githubUser) {
       setShowProjectsSection(true);
-      setResetErrorOnUserChange(true)
     }
   }, [githubUser]);
 
   const handleSubmit = (e, userName) => {
     e.preventDefault();
     setGithubUser(userName);
-    console.log('On Submir User = ', userName);
   };
   return (
     <div>
@@ -32,7 +29,7 @@ const Github = () => {
       />
       {showProjectsSection ? (
         <div>
-          <GithubProjects username={githubUser} resetError={resetErrorOnUserChange} />
+          <GithubProjects username={githubUser} />
         </div>
       ) : null}
     </div>
