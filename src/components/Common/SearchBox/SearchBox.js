@@ -14,6 +14,7 @@ const SearchBox = ({
   githubUser,
   setGithubUser,
   setShowProjectsSection,
+  value,
 }) => {
   const handleInputChange = (e) => {
     setShowProjectsSection(false);
@@ -33,6 +34,7 @@ const SearchBox = ({
           onChange={handleInputChange}
           placeholder={placeholder}
           formError={formError}
+          value={value}
         />
       </div>
       <div

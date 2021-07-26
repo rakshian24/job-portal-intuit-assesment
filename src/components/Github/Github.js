@@ -15,7 +15,7 @@ const Github = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     validateForm();
-    if (githubUser) {
+    if (githubUser.length > 0) {
       setShowProjectsSection(true);
     } else {
       setShowProjectsSection(false);
@@ -35,8 +35,9 @@ const Github = ({
         githubUser={githubUser}
         setGithubUser={setGithubUser}
         setShowProjectsSection={setShowProjectsSection}
+        value={githubUser}
       />
-      {showProjectsSection ? (
+      {showProjectsSection && githubUser.length > 0 ? (
         <div>
           <GithubProjects
             username={githubUser}

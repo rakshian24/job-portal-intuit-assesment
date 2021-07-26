@@ -3,23 +3,29 @@ import { useState } from 'react';
 import { EXPERIENCE } from '../../constants';
 import Card from '../Common/Card/Card';
 import FormInput from '../Common/FormInput/FormInput';
-import Select from '../Common/Select/Select';
 import TagBox from '../Common/TagBox/TagBox';
 import Github from '../Github/Github';
 import './Profile.style.css';
 import { useAsyncState } from '../../hooks/useAsyncState';
+import { useDispatch, useSelector } from 'react-redux';
+import { asyncCreateProfile } from '../../reducer/profile/actionCreator';
+import Select from 'react-select';
+import FormInputErrorMessage from '../Common/FormInputErrorMessage/FormInputErrorMessage';
 
 const Profile = () => {
+  const { user } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    experience: '',
     preferredLocation: '',
   });
   const [tags, setTags] = useState([]);
   const [githubUser, setGithubUser] = useState('');
   const [selectedProject, setSelectedProject] = useState([]);
   const [errors, setErrors] = useAsyncState({});
+  const [experience, setExperience] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +39,7 @@ const Profile = () => {
 
   async function validateForm() {
     const errorsObj = {};
-    const { firstName, lastName, preferredLocation, experience } = formData;
+    const { firstName, lastName, preferredLocation } = formData;
     if (!firstName) {
       errorsObj.firstName = 'First name is required';
     } else {
@@ -66,7 +72,7 @@ const Profile = () => {
       }
     }
 
-    if (!experience || experience === 'Please select your experience') {
+    if (!experience) {
       errorsObj.experience = 'Experience is required';
     }
 
@@ -77,6 +83,19 @@ const Profile = () => {
     const validationErrors = await setErrors(errorsObj);
     return Object.keys(validationErrors).length === 0;
   }
+
+  const resetFormValues = () => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      preferredLocation: '',
+    });
+    setTags([]);
+    setGithubUser('');
+    setSelectedProject([]);
+    setErrors({});
+    setExperience(null);
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -90,11 +109,14 @@ const Profile = () => {
 
     const isValidated = await validateForm();
 
-    console.log('isValidated = ', isValidated);
     if (isValidated) {
-      console.log('No Validation Errors');
-    } else {
-      console.log('Validation Errors = ', errors);
+      dispatch(asyncCreateProfile(formSubmissionData)).then(
+        (isUserProfileCreated) => {
+          if (isUserProfileCreated) {
+            resetFormValues();
+          }
+        },
+      );
     }
   };
 
@@ -110,6 +132,7 @@ const Profile = () => {
                   type="text"
                   label="First name"
                   name="firstName"
+                  value={formData.firstName}
                   onChange={handleInputChange}
                   placeholder={'Enter First Name'}
                   formError={errors}
@@ -120,6 +143,7 @@ const Profile = () => {
                   type="text"
                   label="Last name"
                   name="lastName"
+                  value={formData.lastName}
                   onChange={handleInputChange}
                   placeholder={'Enter Last Name'}
                   formError={errors}
@@ -130,6 +154,7 @@ const Profile = () => {
                   type="text"
                   label="Preferred Location"
                   name="preferredLocation"
+                  value={formData.preferredLocation}
                   onChange={handleInputChange}
                   placeholder={'Enter Preferred Location'}
                   formError={errors}
@@ -137,14 +162,24 @@ const Profile = () => {
               </div>
             </div>
 
-            <div className="form-second-row">
+            <div className="exp-select">
+              <div>Experience</div>
               <Select
-                label="Experience"
                 name="experience"
                 options={EXPERIENCE}
-                handleDropdownChange={handleInputChange}
-                formError={errors}
+                onChange={(e) => {
+                  setErrors({ ...errors, experience: '' });
+                  setExperience(e);
+                }}
+                value={experience}
+                placeholder="Select Your Experience"
+                id="experience"
               />
+              {errors && errors.experience ? (
+                <FormInputErrorMessage errorMsg={errors.experience} />
+              ) : (
+                ''
+              )}
             </div>
             <div className="form-third-row">
               <TagBox label="Skills" tags={tags} setTags={setTags} />
@@ -158,6 +193,7 @@ const Profile = () => {
                 setSelectedProject={setSelectedProject}
                 formError={errors}
                 validateForm={validateForm}
+                value={githubUser}
               />
             </div>
           </div>
