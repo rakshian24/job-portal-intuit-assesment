@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 import { EXPERIENCE } from '../../constants';
 import Card from '../Common/Card/Card';
@@ -10,22 +9,31 @@ import Github from '../Github/Github';
 import './Profile.style.css';
 
 const Profile = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-  });
-
-  useEffect(() => {
-    console.log('FormData = ', formData);
-  }, [formData]);
+  const [formData, setFormData] = useState({});
+  const [tags, setTags] = useState([]);
+  const [githubUser, setGithubUser] = useState('');
+  const [selectedProject, setSelectedProject] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const formSubmissionData = {
+      ...formData,
+      skills: tags,
+      githubUser,
+      githubProjects: selectedProject,
+    };
+
+    console.log('Form Submission Data = ', formSubmissionData);
+  };
+
   return (
     <div className="profile-form-wrapper">
-      <form className="form" autoComplete="off">
+      <form className="form" autoComplete="off" onSubmit={handleFormSubmit}>
         <Card>
           <div className="card-title">Personal Details</div>
           <div className="card-content">
@@ -68,12 +76,22 @@ const Profile = () => {
               />
             </div>
             <div className="form-third-row">
-              <TagBox label="Skills" />
+              <TagBox label="Skills" tags={tags} setTags={setTags} />
             </div>
 
             <div>
-              <Github />
+              <Github
+                githubUser={githubUser}
+                setGithubUser={setGithubUser}
+                selectedProject={selectedProject}
+                setSelectedProject={setSelectedProject}
+              />
             </div>
+          </div>
+          <div className="submit-btn-container">
+            <button type="submit" className="primary-btn">
+              Create Profile
+            </button>
           </div>
         </Card>
       </form>

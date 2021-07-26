@@ -3,8 +3,7 @@ import { useEffect } from 'react';
 import SearchBox from '../Common/SearchBox/SearchBox';
 import GithubProjects from '../GithubProjects/GithubProjects';
 
-const Github = () => {
-  const [githubUser, setGithubUser] = useState('');
+const Github = ({githubUser, setGithubUser, selectedProject, setSelectedProject}) => {
   const [showProjectsSection, setShowProjectsSection] = useState(false);
 
   useEffect(() => {
@@ -29,7 +28,11 @@ const Github = () => {
       />
       {showProjectsSection ? (
         <div>
-          <GithubProjects username={githubUser} />
+          <GithubProjects
+            username={githubUser}
+            selectedValue={selectedProject}
+            setSelected={(e) => setSelectedProject(e)}
+          />
         </div>
       ) : null}
     </div>

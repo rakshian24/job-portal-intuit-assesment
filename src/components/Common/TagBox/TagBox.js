@@ -5,8 +5,7 @@ import Tag from '../Tag/Tag';
 import './TagBox.style.css';
 import { v4 as uuid } from 'uuid';
 
-const TagBox = ({ label }) => {
-  const [tags, setTags] = useState([]);
+const TagBox = ({ label, tags, setTags }) => {
   const [isTagInputFocussed, setIsTagInputFocussed] = useState(false);
   const tagInput = useRef();
 

@@ -14,7 +14,18 @@ const useSearchGithubUser = ({ username }) => {
           `https://api.github.com/users/${username}/repos?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`,
         );
         setErrors(null);
-        setGithubProjects(response.data);
+        const filteredResponse = await response.data.map(
+          ({ id, html_url, description, name }) => {
+            let projectObj = {};
+            projectObj.id = id;
+            projectObj.name = name;
+            projectObj.description = description;
+            projectObj.html_url = html_url;
+
+            return projectObj;
+          },
+        );
+        setGithubProjects(filteredResponse);
       } catch (e) {
         setGithubProjects([]);
         setErrors(e);
