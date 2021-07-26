@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import SearchBox from '../Common/SearchBox/SearchBox';
 import GithubProjects from '../GithubProjects/GithubProjects';
 
-const Github = ({githubUser, setGithubUser, selectedProject, setSelectedProject}) => {
+const Github = ({
+  githubUser,
+  setGithubUser,
+  selectedProject,
+  setSelectedProject,
+  formError,
+  validateForm,
+}) => {
   const [showProjectsSection, setShowProjectsSection] = useState(false);
 
-  useEffect(() => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validateForm();
     if (githubUser) {
       setShowProjectsSection(true);
+    } else {
+      setShowProjectsSection(false);
     }
-  }, [githubUser]);
-
-  const handleSubmit = (e, userName) => {
-    e.preventDefault();
-    setGithubUser(userName);
   };
   return (
     <div>
@@ -24,7 +29,12 @@ const Github = ({githubUser, setGithubUser, selectedProject, setSelectedProject}
         inputBoxFlexSize={0.3}
         btnText="Search User"
         handleSubmit={handleSubmit}
-        name="githubUsername"
+        name="githubUser"
+        formError={formError}
+        validateForm={validateForm}
+        githubUser={githubUser}
+        setGithubUser={setGithubUser}
+        setShowProjectsSection={setShowProjectsSection}
       />
       {showProjectsSection ? (
         <div>

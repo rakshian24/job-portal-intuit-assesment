@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import FormInput from '../FormInput/FormInput';
 import './SearchBox.style.css';
 
@@ -10,10 +9,19 @@ const SearchBox = ({
   btnText,
   name,
   handleSubmit,
+  formError,
+  validateForm,
+  githubUser,
+  setGithubUser,
+  setShowProjectsSection,
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
   const handleInputChange = (e) => {
-    setSearchQuery(e.target.value);
+    setShowProjectsSection(false);
+    setGithubUser(e.target.value);
+    const validationErrorsLength = Object.keys(formError).length > 0;
+    if (validationErrorsLength) {
+      validateForm();
+    }
   };
   return (
     <div className="search-box-wrapper">
@@ -24,12 +32,15 @@ const SearchBox = ({
           name={name}
           onChange={handleInputChange}
           placeholder={placeholder}
+          formError={formError}
         />
       </div>
-      <div className="search-btn-container">
+      <div
+        className={`search-btn-container ${formError[name] ? 'formError' : ''}`}
+      >
         <button
           className="search-btn"
-          onClick={(e) => handleSubmit(e, searchQuery)}
+          onClick={(e) => handleSubmit(e, githubUser)}
         >
           {btnText}
         </button>

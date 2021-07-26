@@ -1,7 +1,8 @@
 import React from 'react';
+import FormInputErrorMessage from '../FormInputErrorMessage/FormInputErrorMessage';
 import './Select.style.css';
 
-const Select = ({ label, name, options, handleDropdownChange }) => {
+const Select = ({ label, formError, name, options, handleDropdownChange }) => {
   return (
     <div className="custom-select">
       <label htmlFor={name}>{label}</label>
@@ -15,6 +16,11 @@ const Select = ({ label, name, options, handleDropdownChange }) => {
           </option>
         ))}
       </select>
+      {formError && formError[name] ? (
+        <FormInputErrorMessage errorMsg={formError[name]} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
