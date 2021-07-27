@@ -6,14 +6,14 @@ import FormInput from '../Common/FormInput/FormInput';
 import TagBox from '../Common/TagBox/TagBox';
 import Github from '../Github/Github';
 import './Profile.style.css';
-// import { useAsyncState } from '../../hooks/useAsyncState';
+import { useAsyncState } from '../../hooks/useAsyncState';
 import { useDispatch, useSelector } from 'react-redux';
 import { asyncCreateProfile } from '../../reducer/profile/actionCreator';
-import Select from 'react-select';
 import FormInputErrorMessage from '../Common/FormInputErrorMessage/FormInputErrorMessage';
 import { useHistory } from 'react-router-dom';
 import ImageUpload from '../ImageUpload/ImageUpload';
 import uploadPic from '../../helper/uploadPicToCloudinary';
+import SingleSelect from '../Common/SingleSelect/SingleSelect';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -26,8 +26,7 @@ const Profile = () => {
   const [tags, setTags] = useState([]);
   const [githubUser, setGithubUser] = useState('');
   const [selectedProject, setSelectedProject] = useState([]);
-  // const [errors, setErrors] = useAsyncState({});
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useAsyncState({});
   const [experience, setExperience] = useState(null);
   const [media, setMedia] = useState(null);
   const [mediaPreview, setMediaPreview] = useState(null);
@@ -36,7 +35,6 @@ const Profile = () => {
 
   let history = useHistory();
   const { darkTheme } = useSelector((state) => state.darkTheme);
-  const selectDarkThemeBG = darkTheme ? 'black' : 'white';
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -53,62 +51,51 @@ const Profile = () => {
     }
   };
 
-  const validateForm = () => {
+  const validateForm = async () => {
     const errorsObj = {};
     const { firstName, lastName, preferredLocation } = formData;
-    let isValid = true;
+
     if (!firstName) {
       errorsObj.firstName = 'First name is required';
-      isValid = false;
     } else {
       if (firstName.length < 3) {
         errorsObj.firstName = 'First name has to be min 3 characters';
-        isValid = false;
       } else if (firstName.length > 20) {
         errorsObj.firstName =
           'First name cannot exceed more than 20 characters';
-        isValid = false;
       }
     }
     if (!lastName) {
       errorsObj.lastName = 'Last name is required';
-      isValid = false;
     } else {
       if (lastName.length < 3) {
         errorsObj.lastName = 'Last name has to be min 3 characters';
-        isValid = false;
       } else if (lastName.length > 20) {
         errorsObj.lastName = 'Last name cannot exceed more than 20 characters';
-        isValid = false;
       }
     }
 
     if (!preferredLocation) {
       errorsObj.preferredLocation = 'Preferred Location is required';
-      isValid = false;
     } else {
       if (preferredLocation.length < 3) {
         errorsObj.preferredLocation =
           'Preferred Location has to be min 3 characters';
-        isValid = false;
       } else if (preferredLocation.length > 20) {
         errorsObj.preferredLocation =
           'Preferred Location cannot exceed more than 20 characters';
-        isValid = false;
       }
     }
 
     if (!experience) {
       errorsObj.experience = 'Experience is required';
-      isValid = false;
     }
 
     if (!githubUser) {
       errorsObj.githubUser = 'Please enter your github user name';
-      isValid = false;
     }
-    setErrors(errorsObj);
-    return isValid;
+    const validationErrors = await setErrors(errorsObj);
+    return Object.keys(validationErrors).length === 0;
   };
 
   const resetFormValues = () => {
@@ -135,7 +122,7 @@ const Profile = () => {
       profilePic: uploadedProfilePicUrl,
     };
 
-    const isValidated = validateForm();
+    const isValidated = await validateForm();
     if (isValidated) {
       dispatch(asyncCreateProfile(formSubmissionData)).then(
         (isUserProfileCreated) => {
@@ -203,7 +190,7 @@ const Profile = () => {
 
             <div className="exp-select">
               <div>Experience</div>
-              <Select
+              <SingleSelect
                 name="experience"
                 options={EXPERIENCE}
                 onChange={(e) => {
@@ -214,14 +201,8 @@ const Profile = () => {
                 placeholder="Select Your Experience"
                 id="experience"
                 className="customSelect"
-                styles={{
-                  menu: (base) => ({ ...base, zIndex: 9999 }),
-                  control: (base) => ({
-                    ...base,
-                    backgroundColor: selectDarkThemeBG,
-                    border: '1px solid #0077c5',
-                  }),
-                }}
+                currentThemeBG={darkTheme ? 'black' : 'white'}
+                currentThemeColor={darkTheme ? 'white' : 'black'}
               />
               {errors && errors.experience ? (
                 <FormInputErrorMessage errorMsg={errors.experience} />
