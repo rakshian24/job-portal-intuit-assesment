@@ -27,22 +27,21 @@ const ImageUpload = ({
         ref={profilePicRef}
       />
       <div
-      // onDragOver={(e) => {
-      //   e.preventDefault();
-      //   setHighlighted(true);
-      // }}
-      // onDragLeave={(e) => {
-      //   e.preventDefault();
-      //   setHighlighted(false);
-      // }}
-      // onDrop={(e) => {
-      //   e.preventDefault();
-      //   setHighlighted(true);
-      //   const droppedFile = Array.from(e.dataTransfer.files);
-      //   console.log("DROPPED FILE = ", droppedFile)
-      //   setMedia(droppedFile[0]);
-      //   setMediaPreview(URL.createObjectURL(droppedFile[0]));
-      // }}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setHighlighted(true);
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        setHighlighted(false);
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        setHighlighted(true);
+        const droppedFile = Array.from(e.dataTransfer.files);
+        setMedia(droppedFile[0]);
+        setMediaPreview(URL.createObjectURL(droppedFile[0]));
+      }}
       >
         {mediaPreview === null ? (
           <div
@@ -65,7 +64,7 @@ const ImageUpload = ({
             </div>
           </div>
         ) : (
-          <>
+          <>  
             <div>
               <img
                 className="uploaded-image"

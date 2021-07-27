@@ -18,7 +18,6 @@ const Header = ({ title }) => {
   const { pathname: currentRoute } = useLocation();
   const {darkTheme} = useSelector((state) => state.darkTheme);
   const dispatchDarkTheme = useDispatch();
-  console.log('DARKTHEME = ', darkTheme);
 
   useEffect(() => {
     window.addEventListener('resize', setWindowWidth(window.innerWidth));

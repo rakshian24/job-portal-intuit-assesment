@@ -6,7 +6,7 @@ import FormInput from '../Common/FormInput/FormInput';
 import TagBox from '../Common/TagBox/TagBox';
 import Github from '../Github/Github';
 import './Profile.style.css';
-import { useAsyncState } from '../../hooks/useAsyncState';
+// import { useAsyncState } from '../../hooks/useAsyncState';
 import { useDispatch } from 'react-redux';
 import { asyncCreateProfile } from '../../reducer/profile/actionCreator';
 import Select from 'react-select';
@@ -27,7 +27,8 @@ const Profile = () => {
   const [tags, setTags] = useState([]);
   const [githubUser, setGithubUser] = useState('');
   const [selectedProject, setSelectedProject] = useState([]);
-  const [errors, setErrors] = useAsyncState({});
+  // const [errors, setErrors] = useAsyncState({});
+  const [errors, setErrors] = useState({});
   const [experience, setExperience] = useState(null);
   const [media, setMedia] = useState(null);
   const [mediaPreview, setMediaPreview] = useState(null);
@@ -51,52 +52,63 @@ const Profile = () => {
     }
   };
 
-  async function validateForm() {
+  const validateForm = () => {
     const errorsObj = {};
     const { firstName, lastName, preferredLocation } = formData;
+    let isValid = true;
     if (!firstName) {
       errorsObj.firstName = 'First name is required';
+      isValid = false;
     } else {
       if (firstName.length < 3) {
         errorsObj.firstName = 'First name has to be min 3 characters';
+        isValid = false;
       } else if (firstName.length > 20) {
         errorsObj.firstName =
           'First name cannot exceed more than 20 characters';
+        isValid = false;
       }
     }
     if (!lastName) {
       errorsObj.lastName = 'Last name is required';
+      isValid = false;
     } else {
       if (lastName.length < 3) {
         errorsObj.lastName = 'Last name has to be min 3 characters';
+        isValid = false;
       } else if (lastName.length > 20) {
         errorsObj.lastName = 'Last name cannot exceed more than 20 characters';
+        isValid = false;
       }
     }
 
     if (!preferredLocation) {
       errorsObj.preferredLocation = 'Preferred Location is required';
+      isValid = false;
     } else {
       if (preferredLocation.length < 3) {
         errorsObj.preferredLocation =
           'Preferred Location has to be min 3 characters';
+        isValid = false;
       } else if (preferredLocation.length > 20) {
         errorsObj.preferredLocation =
           'Preferred Location cannot exceed more than 20 characters';
+        isValid = false;
       }
     }
 
     if (!experience) {
       errorsObj.experience = 'Experience is required';
+      isValid = false;
     }
 
     if (!githubUser) {
       errorsObj.githubUser = 'Please enter your github user name';
+      isValid = false;
     }
-
-    const validationErrors = await setErrors(errorsObj);
-    return Object.keys(validationErrors).length === 0;
-  }
+    setErrors(errorsObj);
+    return isValid;
+  };
 
   const resetFormValues = () => {
     setFormData({
@@ -113,8 +125,7 @@ const Profile = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setErrors({});
-    const uploadedProfilePicUrl = await uploadPic(media);
+    const uploadedProfilePicUrl = media ? await uploadPic(media) : '';
     const formSubmissionData = {
       ...formData,
       skills: tags,
@@ -123,8 +134,7 @@ const Profile = () => {
       profilePic: uploadedProfilePicUrl,
     };
 
-    const isValidated = await validateForm();
-
+    const isValidated = validateForm();
     if (isValidated) {
       dispatch(asyncCreateProfile(formSubmissionData)).then(
         (isUserProfileCreated) => {
