@@ -1,5 +1,6 @@
 import React from 'react';
 import { BsImage } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
 import './ImageUpload.style.css';
 
 const ImageUpload = ({
@@ -11,8 +12,13 @@ const ImageUpload = ({
   setMedia,
   profilePicRef,
 }) => {
+  const { darkTheme } = useSelector((state) => state.darkTheme);
   return (
-    <div className="image-upload-wrapper">
+    <div
+      className={`image-upload-wrapper ${
+        darkTheme ? 'darkWrapperStyle' : 'lightStyle'
+      }`}
+    >
       <input
         type="file"
         accept="image/*"
@@ -21,32 +27,42 @@ const ImageUpload = ({
         ref={profilePicRef}
       />
       <div
-        // onDragOver={(e) => {
-        //   e.preventDefault();
-        //   setHighlighted(true);
-        // }}
-        // onDragLeave={(e) => {
-        //   e.preventDefault();
-        //   setHighlighted(false);
-        // }}
-        // onDrop={(e) => {
-        //   e.preventDefault();
-        //   setHighlighted(true);
-        //   const droppedFile = Array.from(e.dataTransfer.files);
-        //   console.log("DROPPED FILE = ", droppedFile)
-        //   setMedia(droppedFile[0]);
-        //   setMediaPreview(URL.createObjectURL(droppedFile[0]));
-        // }}
+      // onDragOver={(e) => {
+      //   e.preventDefault();
+      //   setHighlighted(true);
+      // }}
+      // onDragLeave={(e) => {
+      //   e.preventDefault();
+      //   setHighlighted(false);
+      // }}
+      // onDrop={(e) => {
+      //   e.preventDefault();
+      //   setHighlighted(true);
+      //   const droppedFile = Array.from(e.dataTransfer.files);
+      //   console.log("DROPPED FILE = ", droppedFile)
+      //   setMedia(droppedFile[0]);
+      //   setMediaPreview(URL.createObjectURL(droppedFile[0]));
+      // }}
       >
         {mediaPreview === null ? (
-          <div className="placeholder-icon-container">
+          <div
+            className={`placeholder-icon-container ${
+              darkTheme ? 'darkStyle' : 'lightStyle'
+            }`}
+          >
             <BsImage
               className="image-icon"
               style={{ cursor: 'pointer' }}
               onClick={() => profilePicRef.current.click()}
               size={'25px'}
             />
-            <div className="placeholder-icon-descr">Click to upload Image</div>
+            <div
+              className={`placeholder-icon-descr ${
+                darkTheme ? 'darkStyle' : 'lightStyle'
+              }`}
+            >
+              Click to upload Image
+            </div>
           </div>
         ) : (
           <>

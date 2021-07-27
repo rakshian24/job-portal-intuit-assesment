@@ -28,3 +28,18 @@
   height: 250px;
   object-fit: scale-down;
 }
+
+.darkStyle {
+  color: white;
+  background-color: black;
+}
+
+.lightStyle {
+  color: black;
+  background-color: white;
+}
+
+.darkWrapperStyle {
+  background-color: black;
+  border: 1px solid white;
+}

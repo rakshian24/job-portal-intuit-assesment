@@ -1,6 +1,7 @@
 .profile-form-wrapper {
-  margin: 2rem 0;
+  margin-top: 2rem;
   width: 90%;
+  margin-bottom: calc(70px + 2rem);
 }
 
 .form-first-row {
@@ -13,11 +14,11 @@
   justify-content: flex-end;
 }
 
-.exp-select{
+.exp-select {
   margin-bottom: 1rem;
 }
 
-.exp-select >div{
+.exp-select > div {
   margin-bottom: 4px;
 }
 
@@ -28,7 +29,8 @@
   outline: none;
   cursor: pointer;
   background-color: #0097e6;
-  color: white;
+  /* color: white; */
+  color: inherit;
   letter-spacing: 0.1px;
 }
 

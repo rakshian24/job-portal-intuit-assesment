@@ -20,29 +20,34 @@
   display: flex;
   flex: 1;
   justify-content: space-between;
+  align-items: center;
 }
 
 .header-nav-container > div {
   display: flex;
+  align-items: center;
 }
 
 .header-nav {
   margin: 0 0.75rem;
   font-size: 1rem;
   font-weight: 500;
-  color: #becfe6;
+  /* color: #becfe6; */
+  color: inherit;
   cursor: pointer;
 }
 
 .active-nav-tab {
-  color: #fff;
+  /* color: #fff; */
+  color: inherit;
   position: relative;
 }
 
 .active-nav-tab:after {
   position: absolute;
   content: '';
-  border-bottom: 4px solid #fff;
+  /* border-bottom: 4px solid #fff; */
+  border-bottom: 4px solid inherit;
   width: 100%;
   transform: translateX(-50%);
   bottom: -25px;

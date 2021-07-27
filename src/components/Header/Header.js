@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { HEADER_NAVS } from '../../constants';
 import { asyncChangeRole } from '../../reducer/role/actionCreator';
+import { toggleTheme } from '../../reducer/theme/actionCreator';
 import HeaderNavs from './components/HeaderNavs/HeaderNavs';
 import './Header.style.css';
 
@@ -15,6 +16,9 @@ const Header = ({ title }) => {
   const dispatch = useDispatch();
   let history = useHistory();
   const { pathname: currentRoute } = useLocation();
+  const {darkTheme} = useSelector((state) => state.darkTheme);
+  const dispatchDarkTheme = useDispatch();
+  console.log('DARKTHEME = ', darkTheme);
 
   useEffect(() => {
     window.addEventListener('resize', setWindowWidth(window.innerWidth));
@@ -55,6 +59,14 @@ const Header = ({ title }) => {
                 }`}
               >
                 Change Role
+              </div>
+              <div>
+                <button
+                  className="search-btn"
+                  onClick={() => dispatchDarkTheme(toggleTheme(!darkTheme))}
+                >
+                  {`${darkTheme ? 'Light Theme' : 'Dark Theme'}`}
+                </button>
               </div>
             </div>
           </div>
