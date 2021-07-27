@@ -1,10 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import FormInputErrorMessage from '../FormInputErrorMessage/FormInputErrorMessage';
 import './FormInput.style.css';
 
-const FormInput = ({ type, formError, label, name, value, onChange, placeholder }) => {
+const FormInput = ({
+  type,
+  formError,
+  label,
+  name,
+  value,
+  onChange,
+  placeholder,
+}) => {
+  const { darkTheme } = useSelector((state) => state.darkTheme);
   return (
-    <div className="form-group">
+    <div className={`form-group ${darkTheme ? 'dark-theme-form-group' : ''}`}>
       <label htmlFor={name}>{label}</label>
       <input
         type={type}
@@ -12,7 +22,7 @@ const FormInput = ({ type, formError, label, name, value, onChange, placeholder 
         name={name}
         onChange={onChange}
         placeholder={placeholder}
-        className="form-input"
+        className={`form-input ${darkTheme ? 'dark-theme-input' : ''}`}
         value={value}
       />
       {formError && formError[name] ? (

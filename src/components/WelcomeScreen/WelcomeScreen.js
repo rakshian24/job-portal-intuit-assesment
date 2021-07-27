@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const WelcomeScreen = () => {
-  const { role } = useSelector((state) => state.role);
+  const { role:{role}, darkTheme: {darkTheme} } = useSelector((state) => state);
   let history = useHistory();
 
   useEffect(() => {
@@ -19,11 +19,11 @@ const WelcomeScreen = () => {
   const dispatch = useDispatch();
   return (
     <div className="welcome-wrapper container">
-      <div className="welcome-card">
+      <div className={`welcome-card ${darkTheme ? 'dark-theme-border dark-theme-shadow' : ''}`}>
         <h6 className="card-title">Please choose your role</h6>
         <div className="card-content">
           <div
-            className="role"
+            className={`role ${darkTheme ? 'dark-theme-role' : ''}`}
             onClick={() =>
               dispatch(asyncChangeRole(ROLES.ADMIN)).then(() =>
                 history.push('/dashboard'),
@@ -34,7 +34,7 @@ const WelcomeScreen = () => {
             <div className="sub-text">Admin can create jobs</div>
           </div>
           <div
-            className="role"
+            className={`role ${darkTheme ? 'dark-theme-role' : ''}`}
             onClick={() =>
               dispatch(asyncChangeRole(ROLES.USER)).then(() =>
                 history.push('/dashboard'),

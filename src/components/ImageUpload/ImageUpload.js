@@ -16,7 +16,7 @@ const ImageUpload = ({
   return (
     <div
       className={`image-upload-wrapper ${
-        darkTheme ? 'darkWrapperStyle' : 'lightStyle'
+        darkTheme ? 'darkWrapperStyle' : ''
       }`}
     >
       <input
@@ -46,7 +46,7 @@ const ImageUpload = ({
         {mediaPreview === null ? (
           <div
             className={`placeholder-icon-container ${
-              darkTheme ? 'darkStyle' : 'lightStyle'
+              darkTheme ? 'darkStyle' : ''
             }`}
           >
             <BsImage
@@ -57,7 +57,7 @@ const ImageUpload = ({
             />
             <div
               className={`placeholder-icon-descr ${
-                darkTheme ? 'darkStyle' : 'lightStyle'
+                darkTheme ? 'darkStyle' : ''
               }`}
             >
               Click to upload Image

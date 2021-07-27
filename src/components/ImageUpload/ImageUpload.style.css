@@ -7,7 +7,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* cursor: pointer; */
 }
 
 .image-upload-wrapper > input {
@@ -31,7 +30,7 @@
 
 .darkStyle {
   color: white;
-  background-color: black;
+  background-color: #696969;
 }
 
 .lightStyle {
@@ -40,6 +39,6 @@
 }
 
 .darkWrapperStyle {
-  background-color: black;
+  background-color: #696969;
   border: 1px solid white;
 }

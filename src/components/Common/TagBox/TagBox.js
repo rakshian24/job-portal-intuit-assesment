@@ -4,10 +4,12 @@ import { useState } from 'react';
 import Tag from '../Tag/Tag';
 import './TagBox.style.css';
 import { v4 as uuid } from 'uuid';
+import { useSelector } from 'react-redux';
 
 const TagBox = ({ label, tags, setTags }) => {
   const [isTagInputFocussed, setIsTagInputFocussed] = useState(false);
   const tagInput = useRef();
+  const { darkTheme } = useSelector((state) => state.darkTheme);
 
   const createTagOnChangeEvent = (e) => {
     const text = e.target.value;
@@ -39,7 +41,7 @@ const TagBox = ({ label, tags, setTags }) => {
       <div
         className={`tag-wrapper ${
           isTagInputFocussed ? 'tag-wrapper-focus' : ''
-        }`}
+        } ${darkTheme ? 'dark-theme-form-group' : ''}`}
       >
         <div className="tag-container">
           {tags.map((tag) => (
@@ -55,6 +57,7 @@ const TagBox = ({ label, tags, setTags }) => {
           placeholder="Enter your skills"
           onFocus={() => setIsTagInputFocussed(true)}
           onBlur={() => setIsTagInputFocussed(false)}
+          className={` ${darkTheme ? 'dark-theme-tag-input' : ''}`}
         />
       </div>
     </div>

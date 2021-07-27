@@ -32,22 +32,19 @@
   margin: 0 0.75rem;
   font-size: 1rem;
   font-weight: 500;
-  /* color: #becfe6; */
-  color: inherit;
+  color: #becfe6;
   cursor: pointer;
 }
 
 .active-nav-tab {
-  /* color: #fff; */
-  color: inherit;
+  color: #fff;
   position: relative;
 }
 
 .active-nav-tab:after {
   position: absolute;
   content: '';
-  /* border-bottom: 4px solid #fff; */
-  border-bottom: 4px solid inherit;
+  border-bottom: 4px solid #fff;
   width: 100%;
   transform: translateX(-50%);
   bottom: -25px;

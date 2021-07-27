@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import useSearchGithubUser from '../../hooks/useSearchGithubUser';
 import Loader from '../Common/Loader/Loader';
 import MultiSelect from '../Common/MultiSelect/MultiSelect';
 
 const GithubProjects = ({ username, selectedValue, setSelected }) => {
   const [githubProjects, errors, loading] = useSearchGithubUser({ username });
+  const { darkTheme } = useSelector((state) => state.darkTheme);
 
   if (errors) {
     return <p>Something Went Wrong :(</p>;
@@ -26,6 +28,7 @@ const GithubProjects = ({ username, selectedValue, setSelected }) => {
             loading={loading}
             selectAllType="Select All"
             placeholder="Select Your Github Projects"
+            currentThemeBG={darkTheme ? 'black' : 'white'}
           />
         </div>
       ) : (

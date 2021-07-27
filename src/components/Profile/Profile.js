@@ -7,7 +7,7 @@ import TagBox from '../Common/TagBox/TagBox';
 import Github from '../Github/Github';
 import './Profile.style.css';
 // import { useAsyncState } from '../../hooks/useAsyncState';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { asyncCreateProfile } from '../../reducer/profile/actionCreator';
 import Select from 'react-select';
 import FormInputErrorMessage from '../Common/FormInputErrorMessage/FormInputErrorMessage';
@@ -17,7 +17,6 @@ import uploadPic from '../../helper/uploadPicToCloudinary';
 
 const Profile = () => {
   const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -36,6 +35,8 @@ const Profile = () => {
   const profilePicRef = useRef();
 
   let history = useHistory();
+  const { darkTheme } = useSelector((state) => state.darkTheme);
+  const selectDarkThemeBG = darkTheme ? 'black' : 'white';
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -212,6 +213,15 @@ const Profile = () => {
                 value={experience}
                 placeholder="Select Your Experience"
                 id="experience"
+                className="customSelect"
+                styles={{
+                  menu: (base) => ({ ...base, zIndex: 9999 }),
+                  control: (base) => ({
+                    ...base,
+                    backgroundColor: selectDarkThemeBG,
+                    border: '1px solid #0077c5',
+                  }),
+                }}
               />
               {errors && errors.experience ? (
                 <FormInputErrorMessage errorMsg={errors.experience} />

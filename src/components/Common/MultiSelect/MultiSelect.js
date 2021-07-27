@@ -140,11 +140,8 @@ const MultiSelect = (props) => {
         menu: (base) => ({ ...base, zIndex: 9999 }),
         control: (base) => ({
           ...base,
-          border: '1px soild #0077c5 !important',
-          boxShadow: '1 !important',
-          '&:hover + :focus': {
-            border: '1px solid #0077c5 !important',
-          },
+          backgroundColor: props.currentThemeBG,
+          border: '1px solid #0077c5',
         }),
       }}
     />

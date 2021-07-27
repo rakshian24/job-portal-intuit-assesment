@@ -29,9 +29,12 @@
   outline: none;
   cursor: pointer;
   background-color: #0097e6;
-  /* color: white; */
-  color: inherit;
+  color: #ffffff;
   letter-spacing: 0.1px;
+}
+
+.customSelect {
+  background-color: black;
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
