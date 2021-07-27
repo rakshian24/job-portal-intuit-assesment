@@ -74,6 +74,9 @@
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .header-title-container {
     flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .header-nav {

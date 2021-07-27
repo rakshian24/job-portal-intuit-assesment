@@ -16,7 +16,7 @@ const Header = ({ title }) => {
   const dispatch = useDispatch();
   let history = useHistory();
   const { pathname: currentRoute } = useLocation();
-  const {darkTheme} = useSelector((state) => state.darkTheme);
+  const { darkTheme } = useSelector((state) => state.darkTheme);
   const dispatchDarkTheme = useDispatch();
 
   useEffect(() => {
@@ -33,6 +33,19 @@ const Header = ({ title }) => {
           <Link to={`${role ? '/dashboard' : '/'}`}>
             <h1 className="header-title">{title}</h1>
           </Link>
+          {windowWidth < 480 ? (
+            <div>
+              <button
+                className="search-btn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatchDarkTheme(toggleTheme(!darkTheme));
+                }}
+              >
+                {`${darkTheme ? 'Light Theme' : 'Dark Theme'}`}
+              </button>
+            </div>
+          ) : null}
         </div>
         {windowWidth > 480 ? (
           <div className="header-nav-container">
