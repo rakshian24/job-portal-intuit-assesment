@@ -16,6 +16,10 @@ export const HEADER_NAVS = [
     url: '/jobs',
     title: 'Jobs',
   },
+  {
+    url: '/createJob',
+    title: 'Create Job',
+  },
 ];
 
 export const EXPERIENCE = [
