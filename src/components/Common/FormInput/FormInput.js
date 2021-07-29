@@ -11,6 +11,7 @@ const FormInput = ({
   value,
   onChange,
   placeholder,
+  submitOnEnter
 }) => {
   const { darkTheme } = useSelector((state) => state.darkTheme);
   return (
@@ -24,6 +25,7 @@ const FormInput = ({
         placeholder={placeholder}
         className={`form-input ${darkTheme ? 'dark-theme-input' : ''}`}
         value={value}
+        onKeyPress={(e) => e.key === 'Enter' && !submitOnEnter && e.preventDefault()}
       />
       {formError && formError[name] ? (
         <FormInputErrorMessage errorMsg={formError[name]} />

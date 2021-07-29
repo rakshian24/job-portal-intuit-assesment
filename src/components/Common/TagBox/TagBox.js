@@ -58,6 +58,7 @@ const TagBox = ({ label, tags, setTags }) => {
           onFocus={() => setIsTagInputFocussed(true)}
           onBlur={() => setIsTagInputFocussed(false)}
           className={` ${darkTheme ? 'dark-theme-tag-input' : ''}`}
+          onKeyPress={(e) => e.key === 'Enter' && e.preventDefault()}
         />
       </div>
     </div>

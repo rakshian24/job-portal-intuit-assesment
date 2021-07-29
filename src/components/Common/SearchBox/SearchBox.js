@@ -35,6 +35,7 @@ const SearchBox = ({
           placeholder={placeholder}
           formError={formError}
           value={value}
+          submitOnEnter
         />
       </div>
       <div

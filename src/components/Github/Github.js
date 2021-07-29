@@ -14,8 +14,7 @@ const Github = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateForm();
-    if (githubUser.length > 0) {
+    if (githubUser.trim().length > 0) {
       setShowProjectsSection(true);
     } else {
       setShowProjectsSection(false);

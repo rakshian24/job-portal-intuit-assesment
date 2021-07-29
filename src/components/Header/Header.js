@@ -75,7 +75,10 @@ const Header = ({ title }) => {
               <div>
                 <button
                   className="search-btn"
-                  onClick={() => dispatchDarkTheme(toggleTheme(!darkTheme))}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatchDarkTheme(toggleTheme(!darkTheme));
+                  }}
                 >
                   {`${darkTheme ? 'Light Theme' : 'Dark Theme'}`}
                 </button>
